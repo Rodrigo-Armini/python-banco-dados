@@ -44,3 +44,25 @@ def listar_todos():
     except Exception as err:
         print("Não foi possível carregar os produtos")
         print(err)
+
+def apagar(id_apagar: int):
+    try:
+        conexao = abrir_conexao()
+        cursor = conexao.cursor()
+        cursor.execute("delete from produtos where id = %s", (id_apagar,))
+        conexao.commit()
+        conexao.close()
+    except Exception as er:
+        print("Não foi possível apagar o registro")
+        print(er)
+
+def editar(id_editar: int, nome: str):
+    try:
+        conexao = abrir_conexao()
+        cursor = conexao.cursor()
+        cursor.execute("update produtos set nome = %s where id = %s", (nome, id_editar))
+        conexao.commit()
+        conexao.close()
+    except Exception as error:
+        print("Não foi possível alterar o produto")
+        print(error)

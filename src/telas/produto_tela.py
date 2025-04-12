@@ -1,4 +1,5 @@
 from src.database.repositorios import produto_repositorio
+import questionary
 
 
 def executar_produto():
@@ -10,6 +11,22 @@ def executar_produto():
              __cadastrar()    
         elif opcao_desejada == "Listar todos":
             __listar_todos()
+        elif opcao_desejada == "Apagar":
+            __apagar()
+        elif opcao_desejada == "Editar":
+            __editar()
+
+def __editar():
+    id_para_editar = int(questionary.text("Digite o id do produto para editar: ").ask())
+    novo_nome_produto = questionary.text("Digite o nome do produto: ").ask()
+    produto_repositorio.editar(id_para_editar, novo_nome_produto)
+    print("Produto alterado com sucesso")
+
+def __apagar():
+    id_para_apagar = int(questionary.text("Digite o id do produto para apagar: ").ask())
+    produto_repositorio.apagar(id_para_apagar)
+    print("Produto apagado com sucesso")
+
 
 def __listar_todos():
     produtos = produto_repositorio.listar_todos()
