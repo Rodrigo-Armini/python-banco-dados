@@ -2,6 +2,7 @@ import os
 
 import questionary
 
+from src.telas.cliente_tela import executar_cliente
 from src.telas.produto_tela import executar_produto
 
 if __name__ == "__main__":
@@ -13,3 +14,6 @@ if __name__ == "__main__":
 
         if opcao_desejada == "Produtos":
             executar_produto()
+        
+        elif opcao_desejada == "Clientes":
+            executar_cliente()
