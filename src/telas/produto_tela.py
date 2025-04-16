@@ -1,5 +1,7 @@
 from src.database.repositorios import produto_repositorio
 import questionary
+from rich.console import Console
+from rich.table import Table
 
 
 def executar_produto():
@@ -42,9 +44,19 @@ def __listar_todos():
         print("Nenhum produto cadastrado!")
         return
     
+    console = Console()
+    tabela = Table()
+    tabela.add_column("Código", style="blue")
+    tabela.add_column("Nome", style="red")
+    
     print("Lista de produtos: ")
     for produto in produtos:
-        print("Id:", produto["id"], "Nome:", produto["nome"])
+        
+        tabela.add_row(
+            str(produto["id"]),
+            produto["nome"]
+        )
+    console.print(tabela)
 
 
 # Funções com um/dois underline(s) antes do nome são consideradas
@@ -63,6 +75,6 @@ def __cadastrar():
 def __validar_nome(nome: str):
     if len(nome.strip()) < 3:
         return "Nome do produto deve conter no mínimo 3 caracteres"
-    if len(nome.strip) > 50:
+    if len(nome.strip()) > 50:
         return "Nome do produto deve conter no máximo 50 caracteres"
     return True
