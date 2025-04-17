@@ -30,7 +30,7 @@ def listar_todos():
     try:
         conexao = abrir_conexao()
         cursor = conexao.cursor()
-        cursor.execute("Select id, nome from produtos")
+        cursor.execute("Select id, nome from produtos ORDER BY nome")
         registros = cursor.fetchall()
 
         produtos = []
