@@ -19,7 +19,13 @@ def executar_produto():
             __editar()
 
 def __editar():
-    id_para_editar = int(questionary.text("Digite o id do produto para editar: ").ask())
+    produtos = produto_repositorio.listar_todos()
+    opcoes_produtos = []
+    for produto in produtos:
+        opcao = questionary.Choice(title=produto["nome"], value=produto["id"])
+        opcoes_produtos.append(opcao)
+    id_para_editar = int(questionary.select("Escolha o produto para editar", choices=opcoes_produtos).ask())
+
     novo_nome_produto = questionary.text("Digite o nome do produto: ", validate=__validar_nome).ask().strip()
     produto_repositorio.editar(id_para_editar, novo_nome_produto)
     print("Produto alterado com sucesso")
